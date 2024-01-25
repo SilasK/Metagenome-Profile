@@ -3,3 +3,7 @@ resources/**
 logs/**
 .snakemake
 .snakemake/**
+
+
+__pycache__
+.DS_Store
