@@ -12,3 +12,12 @@ snakemake_dir = Path(workflow.snakefile).parent.resolve()
 configfile: f"{snakemake_dir.parent}/config/default_config.yaml"
 
 
+
+
+
+include: "rules/input_functions.smk"
+include: "rules/sylph.smk"
+
+rule all:
+    input:
+        "Profile/Sylph_abundance.csv"
