@@ -75,7 +75,7 @@ rule syldb_profile:
         12
     resources:
         time_min=5*60,
-        mem_mb=250*000
+        mem_mb=250*1000
     log:
         "logs/sylph/profile.log"
     shell:
