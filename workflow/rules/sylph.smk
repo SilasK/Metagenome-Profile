@@ -7,6 +7,8 @@ Sylph_db="/home/users/k/kiesers/scratch/Databases/Sylph/v0.3-c200-gtdb-r214.syld
 Sylph_metafile= "/home/users/k/kiesers/scratch/Databases/Sylph/gtdb_r214_metadata.tsv.gz"
 
 
+localrules: get_sylph_db, download_metafile
+
 rule get_sylph_db:
     output:
         Sylph_db
@@ -45,8 +47,8 @@ rule download_metafile:
 
 rule sylph_sketch_all:
     input:
-        R1 = expand("Intermediate/qc/trimmed/{sample}_{fraction}.fastq.gz",sample=SAMPLES,fraction="R1"),
-        R2 = expand("Intermediate/qc/trimmed/{sample}_{fraction}.fastq.gz",sample=SAMPLES,fraction="R2")
+        R1 = expand("QC/reads/{sample}_{fraction}.fastq.gz",sample=SAMPLES,fraction="R1"),
+        R2 = expand("QC/reads/{sample}_{fraction}.fastq.gz",sample=SAMPLES,fraction="R2")
     output:
         directory("Intermediate/sylph/read_sketch")
     threads:

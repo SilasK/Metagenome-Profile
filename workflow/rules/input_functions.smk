@@ -24,7 +24,7 @@ def get_raw_fastq(wildcards):
 
 def get_reads(wildcards):
     return expand(
-            "Intermediate/qc/trimmed/{sample}_{fraction}.fastq.gz",
+            "QC/reads/{sample}_{fraction}.fastq.gz",
             fraction=FRACTIONS,
             sample=wildcards.sample
         ),
