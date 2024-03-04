@@ -59,6 +59,8 @@ taxa= load_green_gene_tax(metadata_file,remove_prefix=True)
 
 D= pd.read_table(profile, index_col=[0,1], usecols=[0,1,2]).squeeze()
 
+assert D.index.is_unique
+
 D= D.unstack()
 
 D.columns= D.columns.map(extract_genome_name_from_path)

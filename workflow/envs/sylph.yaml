@@ -3,4 +3,4 @@ channels:
 - bioconda
 - defaults
 dependencies:
-- sylph=0.5
+- sylph>=0.5.1, <1
