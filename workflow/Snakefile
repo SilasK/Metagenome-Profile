@@ -20,4 +20,8 @@ include: "rules/sylph.smk"
 
 rule all:
     input:
-        "Profile/Sylph_abundance.csv"
+        expand("Sylph/{dbname}_abundance.csv", dbname = config['dbs_for_profiling']),
+        #expand("Sylph/{dbname}_{method}.tsv", dbname= ["refseq_fungi","img_vr4"],method="profile"),
+        #expand("Sylph/{dbname}_{method}.tsv", dbname= "uhgg",method="query"),
+        
+        

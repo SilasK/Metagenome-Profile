@@ -15,16 +15,19 @@ else:
     FRACTIONS = ["se"]
 
 
-def get_raw_fastq(wildcards):
-    headers = ["Reads_raw_" + f for f in FRACTIONS]
-    fastq_dir = Path(config["fastq_dir"])
-
-    return [fastq_dir / f for f in pep.sample_table.loc[wildcards.sample, headers]]
 
 
-def get_reads(wildcards):
-    return expand(
-            "QC/reads/{sample}_{fraction}.fastq.gz",
-            fraction=FRACTIONS,
-            sample=wildcards.sample
-        ),
+
+def get_qc_reads(wildcards):
+    headers = ["Reads_QC_" + f for f in FRACTIONS]
+    return pep.sample_table.loc[wildcards.sample, headers]
+
+
+def sylph_input(wildcards):
+    samples_of_block = Sample_blocks[wildcards.block]
+
+    samples = dict(
+        R1=pep.sample_table.loc[samples_of_block, "Reads_QC_R1"].tolist(),
+        R2=pep.sample_table.loc[samples_of_block, "Reads_QC_R2"].tolist(),
+    )
+    return samples

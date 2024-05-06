@@ -121,11 +121,15 @@ def _pandas_concat_disck_based(
         # read all_headers
         selected_headers = pd.Index([])
         for file in input_tables:
-            headers_of_file = pd.read_csv(
-                file, index_col=index_col, sep=sep, nrows=2, dtype=str, **read_arguments
-            )
+            try:
+                headers_of_file = pd.read_csv(
+                    file, index_col=index_col, sep=sep, nrows=2, dtype=str, **read_arguments
+                ).columns
+            except pd.errors.EmptyDataError:
+                headers_of_file= []
+                logger.info(f"Empty file {file}")
 
-            selected_headers= selected_headers.union( headers_of_file.columns)
+            selected_headers= selected_headers.union( headers_of_file)
 
         
         logger.info(f"Inferred following list of headers {selected_headers}")
@@ -135,22 +139,26 @@ def _pandas_concat_disck_based(
     logger.info("Read an append table by table")
     for file in tqdm(input_tables):
         # read full table
-        table = pd.read_csv(
-            file, index_col=index_col, sep=sep, dtype=str, **read_arguments
-        )
-        # set to common header
-        table = table.reindex(selected_headers, axis=1)
+        try:
+            table = pd.read_csv(
+                file, index_col=index_col, sep=sep, dtype=str, **read_arguments
+            )
+            
+            # set to common header
+            table = table.reindex(selected_headers, axis=1)
 
-        if file == input_tables[0]:
-            mode = "w"
-            print_header = True
-        else:
-            mode = "a"
-            print_header = False
+            if file == input_tables[0]:
+                mode = "w"
+                print_header = True
+            else:
+                mode = "a"
+                print_header = False
 
-        table.to_csv(
-            output_table, sep=sep, mode=mode, header=print_header, **save_arguments
-        )
+            table.to_csv(
+                output_table, sep=sep, mode=mode, header=print_header, **save_arguments
+            )
+        except pd.errors.EmptyDataError:
+            pass
 
 
 def pandas_concat(
