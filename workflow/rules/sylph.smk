@@ -1,4 +1,13 @@
+
+DB_PATH = Path(config["database_dir"])
+SYLPH_DB_PATH = DB_PATH / "Sylph"
+
+
 Sylph_dbs = config["sylph_dbs"]
+
+
+
+
 
 available_sylph_db_names = list(Sylph_dbs.keys())
 if len(available_sylph_db_names) == 0:
@@ -24,12 +33,7 @@ else:
         logger.info(f"Profile for databases: {','.join(config['dbs_for_profiling'])}")
 
 
-# wildcard_constraints:
-#     subsample="/d+",
 
-
-DB_PATH = Path(config["database_dir"])
-SYLPH_DB_PATH = DB_PATH / "Sylph"
 
 
 localrules:
@@ -55,14 +59,6 @@ rule download_metafile:
         "wget {params.url} -O {output} "
 
 
-# split samples into blocks
-BLOCK_LENGTH = 50
-Sample_blocks = {
-    f"Block_{i+1}": SAMPLES[i : i + BLOCK_LENGTH]
-    for i in range(0, len(SAMPLES), BLOCK_LENGTH)
-}
-
-
 
 
 
@@ -81,14 +77,6 @@ rule sylph_sketch_block:
     shell:
         "sylph sketch -c {wildcards.subsample} -1 {input.R1} -2 {input.R2} -d {output} 2> {log}"
 
-
-def sylph_profile_input(wildcards):
-    subsample_value = Sylph_dbs[wildcards.dbname]["c"]
-
-    return dict(
-        sketch_dir=f"Intermediate/sylph/read_sketch_c{subsample_value}/{wildcards.block}",
-        db=SYLPH_DB_PATH / f"{wildcards.dbname}.syldb",
-    )
 
 
 rule sylph_profile:

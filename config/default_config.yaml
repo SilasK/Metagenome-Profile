@@ -8,6 +8,11 @@ mem_default: 40000
 
 # https://github.com/bluenote-1577/sylph/wiki/Pre%E2%80%90built-databases
 sylph_dbs:
+
+  gtdb_r220:
+    url_db: "https://storage.googleapis.com/sylph-stuff/gtdb-r220-c200-dbv1.syldb"
+    url_metafile: "https://github.com/bluenote-1577/sylph-utils/raw/main/gtdb_r220_metadata.tsv.gz"
+    c: 200
   gtdb_r214:
     url_db: "https://storage.googleapis.com/sylph-stuff/v0.3-c200-gtdb-r214.syldb"
     url_metafile: "https://github.com/bluenote-1577/sylph-utils/raw/main/gtdb_r214_metadata.tsv.gz"
@@ -25,4 +30,4 @@ sylph_dbs:
   
 
 dbs_for_profiling: 
-  - gtdb_r214
+  - gtdb_r220
