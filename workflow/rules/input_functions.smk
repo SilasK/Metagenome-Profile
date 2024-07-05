@@ -19,7 +19,7 @@ def sylph_input(wildcards):
 
     output= {}
     for f in FRACTIONS:
-        output[f] = SampleTable.loc[samples_of_block,"Reads_QC_" + f ]
+        output[f] = SampleTable.loc[samples_of_block,"Reads_QC_" + f ].tolist()
 
     return output
 
