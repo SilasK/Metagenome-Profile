@@ -59,7 +59,9 @@ taxa= load_green_gene_tax(metadata_file,remove_prefix=True)
 
 D= pd.read_table(profile, index_col=[0,1], usecols=[0,1,2]).squeeze()
 
-assert D.index.is_unique
+if not D.index.is_unique:
+    raise Exception(f"Not unique sample indexes! Found duplicated {D.index[D.index.duplicated()]}")
+    
 
 D= D.unstack()
 
