@@ -5,3 +5,29 @@ threads: 8
 
 mem_simple: 1000
 mem_default: 40000
+
+# https://github.com/bluenote-1577/sylph/wiki/Pre%E2%80%90built-databases
+sylph_dbs:
+
+  gtdb_r220:
+    url_db: "https://storage.googleapis.com/sylph-stuff/gtdb-r220-c200-dbv1.syldb"
+    url_metafile: "https://github.com/bluenote-1577/sylph-utils/raw/main/gtdb_r220_metadata.tsv.gz"
+    c: 200
+  gtdb_r214:
+    url_db: "https://storage.googleapis.com/sylph-stuff/v0.3-c200-gtdb-r214.syldb"
+    url_metafile: "https://github.com/bluenote-1577/sylph-utils/raw/main/gtdb_r214_metadata.tsv.gz"
+    c: 200
+  img_vr4:
+    url_db: "https://storage.googleapis.com/sylph-stuff/imgvr_c200_v0.3.0.syldb"
+    c: 200
+  refseq_fungi:
+    url_db: https://storage.googleapis.com/sylph-stuff/fungi-refseq-2023nov28-c200-v0.3.syldb
+    c: 200
+  uhgg:
+    url_db: https://storage.googleapis.com/sylph-stuff/uhgg_all_c200_v0.3.0.syldb
+    c: 200
+
+  
+
+dbs_for_profiling: 
+  - gtdb_r220
