@@ -7,10 +7,15 @@ sample_name_constraint = "[A-Za-z][A-Za-z0-9]+"
 wildcard_constraints:
     sample=sample_name_constraint,
 
-
-sample_table_file = "samples.csv"
-SampleTable = pd.read_csv(sample_table_file, index_col=0)
-
+try:
+    SampleTable = pd.read_csv("samples.csv", index_col=0)
+except FileNotFoundError:
+    try:
+        SampleTable = pd.read_csv("samples.tsv", sep="\t", index_col=0)
+    except FileNotFoundError:
+        raise FileNotFoundError(
+            "Sample table not found. Please provide a 'samples.csv' or 'samples.tsv' file."
+        )
 
 assert SampleTable.index.is_unique, "Sample table index is not unique"
 assert SampleTable.index.str.match(
@@ -19,6 +24,10 @@ assert SampleTable.index.str.match(
 
 
 if not SampleTable.columns.str.startswith("Reads_QC").any():
+
+    raise ValueError(
+        "Sample table does not contain QC-Fastq columns starting with 'Reads_QC'. Please check the sample table."
+    )
     import warnings
 
     warnings.warn(
@@ -44,11 +53,6 @@ def get_qc_reads(wildcards):
         return expand("QC/reads/{{sample}}_{fraction}.fastq.gz", fraction=FRACTIONS)
 
 
-def get_raw_reads(wildcards):
-    headers = ["Reads_raw_" + f for f in FRACTIONS]
-    fastq_dir = Path(config["fastq_dir"])
-
-    return [fastq_dir / f for f in SampleTable.loc[wildcards.sample, headers]]
 
 
 

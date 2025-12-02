@@ -9,25 +9,36 @@ mem_default: 40000
 # https://github.com/bluenote-1577/sylph/wiki/Pre%E2%80%90built-databases
 sylph_dbs:
 
+  gtdb_r226:
+    url_db: "http://faust.compbio.cs.cmu.edu/sylph-stuff/gtdb-r226-c200-dbv1.syldb"
+    c: 200
+    taxprof_name: "GTDB_r226"
   gtdb_r220:
     url_db: "https://storage.googleapis.com/sylph-stuff/gtdb-r220-c200-dbv1.syldb"
     url_metafile: "https://github.com/bluenote-1577/sylph-utils/raw/main/gtdb_r220_metadata.tsv.gz"
     c: 200
-  gtdb_r214:
-    url_db: "https://storage.googleapis.com/sylph-stuff/v0.3-c200-gtdb-r214.syldb"
-    url_metafile: "https://github.com/bluenote-1577/sylph-utils/raw/main/gtdb_r214_metadata.tsv.gz"
-    c: 200
+    taxprof_name: "GTDB_r220"
   img_vr4:
     url_db: "https://storage.googleapis.com/sylph-stuff/imgvr_c200_v0.3.0.syldb"
     c: 200
+    taxprof_name: "IMGVR_4.1"
   refseq_fungi:
     url_db: https://storage.googleapis.com/sylph-stuff/fungi-refseq-2023nov28-c200-v0.3.syldb
     c: 200
+    taxprof_name: "FungiRefSeq-2024-07-25"
   uhgg:
     url_db: https://storage.googleapis.com/sylph-stuff/uhgg_all_c200_v0.3.0.syldb
     c: 200
+  uhgv200:
+    url_db: http://faust.compbio.cs.cmu.edu/sylph-stuff/uhgv_c200_dbv1.syldb
+    c: 200
+    taxprof_name: "UHGV_default" # UHGV_ictv
+  uhgv:
+    url_db: http://faust.compbio.cs.cmu.edu/sylph-stuff/uhgv_c100_dbv1.syldb
+    c: 100
+    taxprof_name: "UHGV_default" # UHGV_ictv
 
-  
-
-dbs_for_profiling: 
-  - gtdb_r220
+virus_db_names:
+  - img_vr4
+  - uhgv200
+  - uhgv

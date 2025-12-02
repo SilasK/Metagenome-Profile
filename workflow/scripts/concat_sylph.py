@@ -1,4 +1,3 @@
-
 import os, sys
 import logging, traceback
 
@@ -31,9 +30,12 @@ def handle_exception(exc_type, exc_value, exc_traceback):
 sys.excepthook = handle_exception
 
 from common.io import pandas_concat
-pandas_concat( snakemake.input,
-snakemake.output[0],
-sep="\t",
-index_col=None,
-save_arguments={'index':False},
-disk_based=True)
+
+pandas_concat(
+    snakemake.input,
+    snakemake.output[0],
+    sep="\t",
+    index_col=0,
+    # save_arguments={'index':False}, # inferes 2 col indexes automatically
+    disk_based=True,
+)

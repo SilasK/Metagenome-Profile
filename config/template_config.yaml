@@ -1,1 +1,19 @@
 # This file contains only the user most relavant config obtions idelly with comments
+
+database_dir: "databases" # Directory to store databases
+
+threads_simple: 2
+threads: 8
+
+mem_simple: 1000
+mem_default: 40000
+
+
+dbs_for_profiling: 
+  - gtdb_r220
+  # - img_vr4
+  # - refseq_fungi
+  # - uhgg
+
+# custom_dbname: "genomes" # Name for custom database
+# genome_dir: "genomes" # Directory with fasta files for custom database building

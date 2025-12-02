@@ -59,7 +59,6 @@ def cat_files(files, outfilename, gzip=False):
                 shutil.copyfileobj(f_in, f_out)
 
 
-
 def symlink_relative(files, input_dir, output_dir):
     """create symlink with and adjust for relative path"""
 
@@ -123,15 +122,19 @@ def _pandas_concat_disck_based(
         for file in input_tables:
             try:
                 headers_of_file = pd.read_csv(
-                    file, index_col=index_col, sep=sep, nrows=2, dtype=str, **read_arguments
+                    file,
+                    index_col=index_col,
+                    sep=sep,
+                    nrows=2,
+                    dtype=str,
+                    **read_arguments,
                 ).columns
             except pd.errors.EmptyDataError:
-                headers_of_file= []
+                headers_of_file = []
                 logger.info(f"Empty file {file}")
 
-            selected_headers= selected_headers.union( headers_of_file)
+            selected_headers = selected_headers.union(headers_of_file)
 
-        
         logger.info(f"Inferred following list of headers {selected_headers}")
 
     # parse one file after another
@@ -139,11 +142,12 @@ def _pandas_concat_disck_based(
     logger.info("Read an append table by table")
     for file in tqdm(input_tables):
         # read full table
+
         try:
             table = pd.read_csv(
                 file, index_col=index_col, sep=sep, dtype=str, **read_arguments
             )
-            
+
             # set to common header
             table = table.reindex(selected_headers, axis=1)
 

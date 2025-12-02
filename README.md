@@ -1,3 +1,14 @@
+
+
+# update hummann evn
+use humann=4.0.0a1
+add glpk
+
+
+
+
+
+
 # Snakemake workflow: `<name>`
 
 [![Snakemake](https://img.shields.io/badge/snakemake-≥6.3.0-brightgreen.svg)](https://snakemake.github.io)
